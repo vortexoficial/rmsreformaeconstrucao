@@ -1,0 +1,300 @@
+/* style.css */
+
+/* Variáveis & Fontes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+:root {
+    --tu-orange: #ff7b00;
+}
+
+/* =========================================
+   Loader & Transitions
+   ========================================= */
+#loader {
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+@keyframes loader-bar-grow {
+    0% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+}
+.animate-loader-bar {
+    animation: loader-bar-grow 1.5s ease-out forwards;
+}
+
+/* =========================================
+   Animations & Effects
+   ========================================= */
+
+/* Fade In */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Marquee Infinito (Barra Animada) */
+.marquee-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    display: flex;
+}
+.marquee-content {
+    display: flex;
+    align-items: center;
+    animation: marquee 30s linear infinite;
+    padding-right: 4rem;
+}
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Sheen Effect (Brilho no botão) */
+@keyframes sheen-effect {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
+}
+.btn-sheen {
+    position: relative;
+    overflow: hidden;
+}
+.btn-sheen::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-25deg);
+    animation: sheen-effect 3s infinite;
+    pointer-events: none;
+}
+
+/* Float Animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Card Float Animation */
+@keyframes card-float {
+    0%, 100% { transform: translateY(0); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1); }
+    50% { transform: translateY(-10px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2); }
+}
+.animate-card-float {
+    animation: card-float 4s ease-in-out infinite;
+}
+
+/* Background Pattern */
+.bg-pattern-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Shadows Especiais +TU */
+.shadow-strong-glow {
+    box-shadow: 0 0 30px rgba(0,0,0,0.15);
+}
+.dark .shadow-strong-glow {
+    box-shadow: 0 0 30px rgba(255,255,255,0.05);
+}
+
+/* =========================================
+   Custom Scrollbar (Barra de Rolagem)
+   ========================================= */
+
+/* Para Firefox */
+html {
+    scrollbar-width: thin; 
+    scrollbar-color: var(--tu-orange) #1a1a1a; 
+}
+
+/* Para Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 8px; 
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a; 
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--tu-orange); 
+    border-radius: 10px; 
+    border: 2px solid #1a1a1a; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #e63600; 
+}
+
+/* =========================================
+   ESTILOS DA SEÇÃO OBRAS (ATUALIZADO & TEMATIZADO)
+   ========================================= */
+
+.obras-section {
+    /* Tema CLARO (Padrão) */
+    background-color: #F8F9FA; 
+    color: #111;
+    padding: 60px 0;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tema ESCURO (Quando a classe .dark está no HTML) */
+.dark .obras-section {
+    background-color: #000;
+    color: #fff;
+}
+
+.container-titulo h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.container-titulo span {
+    color: var(--tu-orange);
+    font-weight: bold;
+}
+
+/* --- Wrapper e Track (Lógica Infinita) --- */
+
+/* O Wrapper (Janela de visualização) */
+#gallery-drag-wrapper {
+    overflow-x: hidden; /* Esconde a barra de rolagem nativa */
+    width: 100%;
+    cursor: grab;
+    position: relative;
+    /* Suavidade para interações de toque */
+    -webkit-overflow-scrolling: touch; 
+}
+
+#gallery-drag-wrapper:active {
+    cursor: grabbing;
+}
+
+/* O Track (Trilho onde estão os itens) */
+#gallery-track {
+    display: flex;
+    gap: 20px;
+    width: max-content; /* Garante que os itens fiquem lado a lado */
+    padding: 20px 0;
+    will-change: transform; /* Otimização de performance */
+}
+
+/* --- Os Itens (Cards das Imagens) --- */
+.carousel-item {
+    flex-shrink: 0; /* Impede que o item encolha */
+    width: 300px;   /* Largura fixa */
+    height: 400px;  /* Altura fixa */
+    
+    /* Tema CLARO dos cards */
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+/* Tema ESCURO dos cards */
+.dark .carousel-item {
+    background: #111;
+    border: 1px solid #333;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+/* Efeito ao passar o mouse */
+.carousel-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--tu-orange);
+    box-shadow: 0 15px 30px rgba(255, 123, 0, 0.2);
+}
+
+.dark .carousel-item:hover {
+    box-shadow: 0 15px 30px rgba(255, 123, 0, 0.15);
+}
+
+.carousel-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Classes utilitárias para esconder scrollbar (caso vaze) */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* =========================================
+   Estilos do Modal (Popup Zoom)
+   ========================================= */
+.modal-overlay {
+    display: none; /* Começa invisível */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s;
+}
+
+.modal-imagem {
+    max-width: 90%;
+    max-height: 85vh;
+    border: 2px solid var(--tu-orange);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
+}
+
+.btn-fechar {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10000;
+}
+
+.btn-fechar:hover {
+    color: var(--tu-orange);
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}

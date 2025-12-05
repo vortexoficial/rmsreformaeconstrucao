@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS | Reforma & Construção</title>
+    <link rel="icon" type="image/png" href="img/logop.png">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        tu: {
+                            orange: '#ff7b00', 
+                            dark: '#050505',   
+                            card: '#121212',   
+                            light: '#F8F9FA',  
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 60px -10px rgba(0, 0, 0, 0.2), 0 5px 30px -5px rgba(0, 0, 0, 0.1)',
+                        'glow': '0 0 20px rgba(255, 123, 0, 0.2)', 
+                        'neon': '0 0 15px rgba(255, 123, 0, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .marquee-wrapper { display: flex; overflow: hidden; width: 100%; }
+        .marquee-normal { display: flex; align-items: center; justify-content: flex-start; flex-shrink: 0; animation: marquee 40s linear infinite; }
+        .marquee-reverse { display: flex; align-items: center; justify-content: flex-start; flex-shrink: 0; animation: marquee-reverse 40s linear infinite; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+        @keyframes marquee-reverse { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+
+<body class="bg-tu-light text-gray-900 dark:bg-tu-dark dark:text-gray-100 font-sans transition-colors duration-300 antialiased overflow-x-hidden">
+
+    <div id="loader" class="fixed inset-0 bg-tu-light dark:bg-tu-dark flex flex-col items-center justify-center z-[9999]">
+        <div class="flex flex-col items-center">
+            <img src="img/logop.png" alt="RMS Logo" class="theme-logo w-32 h-auto mb-8 object-contain" />
+            
+            <div class="w-48 h-1 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                <div class="h-full bg-tu-orange w-full animate-loader-bar origin-left"></div>
+            </div>
+            
+            <p class="mt-4 text-gray-500 dark:text-gray-400 font-display font-bold text-xs tracking-[0.2em] uppercase animate-pulse">
+                Reforma & Construção
+            </p>
+        </div>
+    </div>
+
+    <header class="fixed top-4 left-0 right-0 z-50 w-full px-4 transition-all duration-300">
+        <div class="container mx-auto max-w-7xl">
+            <div class="flex h-16 items-center justify-between bg-white/90 dark:bg-black/80 backdrop-blur-md border border-gray-200 dark:border-white/20 rounded-2xl px-6 shadow-soft">
+                <a href="#hero" class="block hover:opacity-80 transition-opacity">
+                    <img src="img/logop.png" alt="RMS Logo" class="theme-logo h-10 w-auto object-contain">
+                </a>
+                <nav class="hidden lg:block">
+                    <ul class="flex items-center gap-8">
+                        <li><a href="#quem-somos" class="text-sm font-medium hover:text-tu-orange transition-colors" data-i18n="nav_about">A RMS</a></li>
+                        <li><a href="#servicos" class="text-sm font-medium hover:text-tu-orange transition-colors" data-i18n="nav_services">Serviços</a></li>
+                        <li><a href="#galeria" class="text-sm font-medium hover:text-tu-orange transition-colors">Galeria</a></li>
+                        <li>
+                            <a href="https://api.whatsapp.com/send?phone=5513000000000" target="_blank"
+                                class="btn-sheen bg-tu-orange text-white font-display font-bold py-2 px-6 rounded-xl flex items-center hover:bg-orange-600 transition-all text-sm shadow-glow" data-i18n="nav_btn">
+                                Orçar Obra
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="flex items-center gap-4 lg:hidden">
+                    <a href="https://api.whatsapp.com/send?phone=5513000000000"
+                        class="btn-sheen bg-tu-orange text-white font-bold py-2 px-4 rounded-xl text-xs font-display">
+                        WhatsApp
+                    </a>
+                    <button class="text-xl" id="hamburger-menu"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay fixed inset-0 bg-white/95 dark:bg-black/95 backdrop-blur-md z-[999] flex flex-col p-6 transition-transform duration-300 ease-in-out lg:hidden translate-x-full" id="mobile-menu-overlay">
+        <div class="flex justify-between items-center mb-12">
+            <img src="img/logop.png" alt="RMS Logo" class="theme-logo h-10 w-auto object-contain">
+            <button class="text-3xl" id="close-menu"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="flex-grow flex flex-col gap-8 text-center">
+            <a href="#quem-somos" class="text-2xl font-display font-bold hover:text-tu-orange" data-i18n="nav_about">A RMS</a>
+            <a href="#servicos" class="text-2xl font-display font-bold hover:text-tu-orange" data-i18n="nav_services">Serviços</a>
+            <a href="#galeria" class="text-2xl font-display font-bold hover:text-tu-orange">Galeria</a>
+        </nav>
+        <a href="https://api.whatsapp.com/send?phone=5513000000000"
+            class="btn-sheen w-full bg-tu-orange text-white py-4 rounded-xl font-display font-bold text-center text-lg shadow-neon" data-i18n="hero_btn">
+            Falar no WhatsApp
+        </a>
+    </div>
+
+    <main>
+
+<section id="hero" class="relative overflow-hidden min-h-screen flex items-center bg-[url('img/bg-mobile-light.png')] md:bg-[url('img/bg-desktop-light.png')] dark:bg-[url('img/bg-mobile-dark.png')] dark:md:bg-[url('img/bg-desktop-dark.png')] bg-cover bg-[center_bottom] lg:bg-center bg-no-repeat z-10">
+
+    <div class="container mx-auto max-w-7xl px-6 relative z-10 w-full">
+        
+        <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
+
+            <div class="w-full lg:w-3/5 2xl:w-2/3 z-10 fade-in-section text-center lg:text-left pb-[450px] lg:pb-0 pt-32 lg:pt-0">
+                
+                <h1 class="font-display font-bold text-gray-900 dark:text-white mb-4 lg:mb-6
+                           text-[1.9rem] leading-[0.9] 
+                           lg:text-5xl 2xl:text-6xl lg:leading-[0.9]">
+                    <span data-i18n="hero_title_1">Sua obra não precisa ser</span> <span class="text-tu-orange" data-i18n="hero_title_highlight">uma dor de cabeça</span> <span data-i18n="hero_title_2">sem fim.</span>
+                    <span class="block mt-2 lg:mt-4" data-i18n="hero_title_3">Qualidade, prazo e acabamento fino.</span>
+                </h1>
+                
+                <p class="text-gray-600 dark:text-gray-300 font-light max-w-lg mx-auto lg:mx-0
+                          text-base mb-6 leading-snug
+                          lg:text-base 2xl:text-lg lg:mb-8 lg:leading-relaxed">
+                    <span data-i18n="hero_subtitle_1">Do alicerce ao acabamento, a</span> <strong>RMS</strong> <span data-i18n="hero_subtitle_2">entrega a solução completa que sua reforma exige.</span>
+                </p>
+                
+                <div class="flex flex-col items-center lg:items-start justify-center lg:justify-start">
+                    <p class="font-display font-bold text-gray-900 dark:text-white uppercase tracking-wide
+                              text-sm mb-3 
+                              lg:text-sm 2xl:text-base lg:mb-4" data-i18n="hero_cta_text">
+                        Precisa de reforma, elétrica ou hidráulica?
+                    </p>
+                    <div class="flex justify-center lg:justify-start w-full md:w-auto">
+                        
+                        <a href="https://api.whatsapp.com/send?phone=5513000000000"
+                            class="btn-sheen w-full md:w-auto bg-tu-orange text-white font-display font-bold rounded-xl hover:bg-orange-600 transition-all shadow-neon flex items-center justify-center gap-2
+                                   py-4 px-8 text-base
+                                   lg:py-3 lg:px-8 lg:text-base
+                                   2xl:py-4 2xl:px-10 2xl:text-lg">
+                            <span data-i18n="hero_btn">Solicitar Orçamento</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+             
+             <div class="hidden lg:block lg:w-2/5 2xl:w-1/3 h-full"></div>
+
+        </div>
+    </div>
+</section>
+
+
+        <div class="relative w-full h-0 z-30"> 
+            <div class="absolute top-1/2 left-0 w-full -translate-y-1/2 overflow-hidden py-32 pointer-events-none">
+                
+                <div class="absolute top-1/2 left-0 w-full -translate-y-1/2 rotate-6 md:rotate-2 scale-110 md:scale-125 bg-gray-900 dark:bg-black border-y border-tu-orange/50 py-5 overflow-hidden flex items-center shadow-xl opacity-100">
+                    <div class="marquee-wrapper w-full flex overflow-hidden">
+                        <div class="marquee-reverse flex shrink-0 items-center justify-start gap-6 pr-6 text-gray-500 font-display font-bold text-sm md:text-base uppercase tracking-widest">
+                            <span class="flex items-center"><i class="fas fa-trowel-bricks text-tu-orange/60 mr-3"></i> Reforma Civil</span>
+                            <span class="flex items-center"><i class="fas fa-paint-roller text-tu-orange/60 mr-3"></i> Pintura</span>
+                            <span class="flex items-center"><i class="fas fa-bolt text-tu-orange/60 mr-3"></i> <span data-i18n="mq_traffic">Elétrica</span></span>
+                            <span class="flex items-center"><i class="fas fa-faucet text-tu-orange/60 mr-3"></i> Hidráulica</span>
+                            <span class="flex items-center"><i class="fas fa-layer-group text-tu-orange/60 mr-3"></i> <span data-i18n="mq_launch">Gesso & Drywall</span></span>
+                            
+                            <span class="flex items-center"><i class="fas fa-trowel-bricks text-tu-orange/60 mr-3"></i> Reforma Civil</span>
+                            <span class="flex items-center"><i class="fas fa-paint-roller text-tu-orange/60 mr-3"></i> Pintura</span>
+                            <span class="flex items-center"><i class="fas fa-bolt text-tu-orange/60 mr-3"></i> <span data-i18n="mq_traffic">Elétrica</span></span>
+                            <span class="flex items-center"><i class="fas fa-faucet text-tu-orange/60 mr-3"></i> Hidráulica</span>
+                            <span class="flex items-center"><i class="fas fa-layer-group text-tu-orange/60 mr-3"></i> <span data-i18n="mq_launch">Gesso & Drywall</span></span>
+                        </div>
+                        <div class="marquee-reverse flex shrink-0 items-center justify-start gap-6 pr-6 text-gray-500 font-display font-bold text-sm md:text-base uppercase tracking-widest" aria-hidden="true">
+                             <span class="flex items-center"><i class="fas fa-trowel-bricks text-tu-orange/60 mr-3"></i> Reforma Civil</span>
+                            <span class="flex items-center"><i class="fas fa-paint-roller text-tu-orange/60 mr-3"></i> Pintura</span>
+                            <span class="flex items-center"><i class="fas fa-bolt text-tu-orange/60 mr-3"></i> <span data-i18n="mq_traffic">Elétrica</span></span>
+                            <span class="flex items-center"><i class="fas fa-faucet text-tu-orange/60 mr-3"></i> Hidráulica</span>
+                            <span class="flex items-center"><i class="fas fa-layer-group text-tu-orange/60 mr-3"></i> <span data-i18n="mq_launch">Gesso & Drywall</span></span>
+                             <span class="flex items-center"><i class="fas fa-trowel-bricks text-tu-orange/60 mr-3"></i> Reforma Civil</span>
+                            <span class="flex items-center"><i class="fas fa-paint-roller text-tu-orange/60 mr-3"></i> Pintura</span>
+                            <span class="flex items-center"><i class="fas fa-bolt text-tu-orange/60 mr-3"></i> <span data-i18n="mq_traffic">Elétrica</span></span>
+                            <span class="flex items-center"><i class="fas fa-faucet text-tu-orange/60 mr-3"></i> Hidráulica</span>
+                            <span class="flex items-center"><i class="fas fa-layer-group text-tu-orange/60 mr-3"></i> <span data-i18n="mq_launch">Gesso & Drywall</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute top-1/2 left-0 w-full -translate-y-1/2 -rotate-6 md:-rotate-2 scale-110 md:scale-125 bg-gray-900 dark:bg-black border-y-2 border-tu-orange py-5 overflow-hidden shadow-[0_0_50px_rgba(255,61,0,0.3)] z-10">
+                    <div class="marquee-wrapper w-full flex overflow-hidden">
+                        <div class="marquee-normal flex shrink-0 items-center justify-start gap-6 pr-6 text-white font-display font-bold text-sm md:text-base uppercase tracking-widest"> 
+                            <span class="flex items-center"><i class="fas fa-snowflake text-tu-orange mr-3"></i> Ar Condicionado</span>
+                            <span class="flex items-center"><i class="fas fa-music text-tu-orange mr-3"></i> Som Ambiente</span>
+                            <span class="flex items-center"><i class="fas fa-border-all text-tu-orange mr-3"></i> Azulejista</span>
+                            <span class="flex items-center"><i class="fas fa-hard-hat text-tu-orange mr-3"></i> Manutenção</span>
+                            <span class="flex items-center"><i class="fas fa-house text-tu-orange mr-3"></i> Construção</span>
+                            <span class="flex items-center"><i class="fas fa-snowflake text-tu-orange mr-3"></i> Ar Condicionado</span>
+                            <span class="flex items-center"><i class="fas fa-music text-tu-orange mr-3"></i> Som Ambiente</span>
+                            <span class="flex items-center"><i class="fas fa-border-all text-tu-orange mr-3"></i> Azulejista</span>
+                            <span class="flex items-center"><i class="fas fa-hard-hat text-tu-orange mr-3"></i> Manutenção</span>
+                            <span class="flex items-center"><i class="fas fa-house text-tu-orange mr-3"></i> Construção</span>
+                        </div>
+                        <div class="marquee-normal flex shrink-0 items-center justify-start gap-6 pr-6 text-white font-display font-bold text-sm md:text-base uppercase tracking-widest" aria-hidden="true">
+                            <span class="flex items-center"><i class="fas fa-snowflake text-tu-orange mr-3"></i> Ar Condicionado</span>
+                            <span class="flex items-center"><i class="fas fa-music text-tu-orange mr-3"></i> Som Ambiente</span>
+                            <span class="flex items-center"><i class="fas fa-border-all text-tu-orange mr-3"></i> Azulejista</span>
+                            <span class="flex items-center"><i class="fas fa-hard-hat text-tu-orange mr-3"></i> Manutenção</span>
+                            <span class="flex items-center"><i class="fas fa-house text-tu-orange mr-3"></i> Construção</span>
+                            <span class="flex items-center"><i class="fas fa-snowflake text-tu-orange mr-3"></i> Ar Condicionado</span>
+                            <span class="flex items-center"><i class="fas fa-music text-tu-orange mr-3"></i> Som Ambiente</span>
+                            <span class="flex items-center"><i class="fas fa-border-all text-tu-orange mr-3"></i> Azulejista</span>
+                            <span class="flex items-center"><i class="fas fa-hard-hat text-tu-orange mr-3"></i> Manutenção</span>
+                            <span class="flex items-center"><i class="fas fa-house text-tu-orange mr-3"></i> Construção</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+       <section id="quem-somos" class="py-24 bg-gray-50 dark:bg-[#050505] transition-colors duration-300 relative overflow-hidden">
+    
+    <div class="absolute inset-0 bg-pattern-dots opacity-[0.03] dark:opacity-[0.1] pointer-events-none"></div>
+    
+    <div class="container mx-auto max-w-7xl px-4 relative z-10">
+        
+        <div class="max-w-4xl mb-12 fade-in-section">
+            <h2 class="font-display text-4xl md:text-5xl font-bold leading-tight mb-6 text-gray-900 dark:text-white">
+                <span data-i18n="about_title_1">Chega de prestadores que</span> 
+                <br class="hidden md:block"> 
+                <span class="text-tu-orange" data-i18n="about_title_highlight">desaparecem na obra.</span>
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400 font-light border-l-4 border-tu-orange pl-6 leading-relaxed" data-i18n="about_subtitle">
+                A RMS veio para profissionalizar o serviço.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 fade-in-section">
+
+            <div class="lg:col-span-8 bg-white dark:bg-[#121212] border border-gray-200 dark:border-white/10 p-8 md:p-10 rounded-[2rem] shadow-sm hover:shadow-md transition-all duration-300 group">
+                <div class="flex flex-wrap items-center gap-3 mb-8">
+                    <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 text-xs font-bold uppercase tracking-widest" data-i18n="about_foundation">Experiência Comprovada</span>
+                    <div class="h-px bg-gray-200 dark:bg-white/10 flex-grow"></div>
+                </div>
+                
+                <h3 class="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6" data-i18n="about_founders_title">
+                    Compromisso e Técnica
+                </h3>
+
+                <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6" data-i18n="about_founders_text_1">
+                    A <strong>RMS Reforma & Construção</strong> nasceu da necessidade do mercado por profissionais versáteis e confiáveis.
+                </p>
+                
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <span data-i18n="about_founders_text_2">Sabemos que reformar envolve sonhos e investimento. Por isso combatemos o problema clássico:</span> <span class="italic text-gray-800 dark:text-gray-200" data-i18n="about_founders_quote">"Mão de obra desqualificada e atrasos."</span>
+                </p>
+            </div>
+
+            <div class="lg:col-span-4 bg-gradient-to-br from-tu-orange to-[#cc3000] p-8 md:p-10 rounded-[2rem] shadow-glow text-white flex flex-col justify-center relative overflow-hidden group">
+                <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <h3 class="font-display text-xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fas fa-triangle-exclamation"></i> <span data-i18n="about_fight_title">Não aceitamos:</span>
+                </h3>
+                
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-xmark text-white/50 mt-1"></i>
+                        <span class="font-medium text-white/90" data-i18n="about_fight_1">Atrasos injustificados</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-xmark text-white/50 mt-1"></i>
+                        <span class="font-medium text-white/90" data-i18n="about_fight_2">Desperdício de material</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-xmark text-white/50 mt-1"></i>
+                        <span class="font-medium text-white/90" data-i18n="about_fight_3">Sujeira pós-obra</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="lg:col-span-12 bg-white dark:bg-[#121212] border border-gray-200 dark:border-white/10 p-8 md:p-10 rounded-[2rem] shadow-sm flex flex-col md:flex-row gap-10">
+                
+                <div class="md:w-1/2 flex flex-col justify-center">
+                    <div class="mb-6">
+                        <h3 class="font-display text-3xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="about_dna_title">
+                            Execução Completa
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed" data-i18n="about_dna_desc">
+                            Centralizamos tudo o que você precisa. Do gesso à elétrica, da pintura ao sistema de som. Um único contato, responsabilidade total.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 bg-gray-50 dark:bg-black/40 rounded-2xl p-6 border border-gray-100 dark:border-white/5">
+                    <h4 class="text-gray-400 text-xs uppercase tracking-widest font-bold mb-4" data-i18n="about_clients_title">Atendemos com excelência:</h4>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-2 rounded-lg bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-gray-600 dark:text-gray-300 text-sm font-medium" data-i18n="client_type_1">Apartamentos</span>
+                        <span class="px-3 py-2 rounded-lg bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-gray-600 dark:text-gray-300 text-sm font-medium" data-i18n="client_type_2">Casas</span>
+                        <span class="px-3 py-2 rounded-lg bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-gray-600 dark:text-gray-300 text-sm font-medium" data-i18n="client_type_3">Lojas Comerciais</span>
+                        <span class="px-3 py-2 rounded-lg bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-gray-600 dark:text-gray-300 text-sm font-medium" data-i18n="client_type_4">Escritórios</span>
+                        <span class="px-3 py-2 rounded-lg bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-gray-600 dark:text-gray-300 text-sm font-medium" data-i18n="client_type_5">Condomínios</span>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-gray-200 dark:border-white/10">
+                        <div class="flex items-center gap-3 text-tu-orange font-bold bg-tu-orange/5 border border-tu-orange/20 p-3 rounded-xl">
+                            <i class="fas fa-star"></i>
+                            <span data-i18n="client_type_special">Reformas Rápidas</span>
+                            <span class="ml-auto text-xs bg-tu-orange text-white px-2 py-1 rounded" data-i18n="client_badge">Foco</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+        <section id="proposito" class="py-24 bg-white dark:bg-tu-dark relative overflow-hidden">
+            <div class="container mx-auto max-w-7xl px-4 relative z-10">
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    <div class="w-full lg:w-1/2 fade-in-section">
+                        <h2 class="font-display text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                            <span data-i18n="purpose_title_1">Seu ambiente merece ser</span> <span class="text-tu-orange" data-i18n="purpose_title_highlight_1">confortável.</span><br>
+                            <span data-i18n="purpose_title_2">E a execução deve ser</span> <span class="text-tu-orange" data-i18n="purpose_title_highlight_2">impecável.</span>
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                            <span data-i18n="purpose_text">Tiramos o projeto do papel e transformamos em realidade, com</span> <strong class="text-gray-900 dark:text-white" data-i18n="purpose_text_bold">segurança técnica e limpeza.</strong>
+                        </p>
+                        <div class="flex flex-wrap items-center gap-6 text-gray-700 dark:text-gray-200 font-medium">
+                            <span class="flex items-center bg-gray-100 dark:bg-white/5 px-4 py-2 rounded-full"><i class="fas fa-check-circle text-tu-orange mr-2"></i> <span data-i18n="purpose_tag_1">Técnica</span></span>
+                            <span class="flex items-center bg-gray-100 dark:bg-white/5 px-4 py-2 rounded-full"><i class="fas fa-check-circle text-tu-orange mr-2"></i> <span data-i18n="purpose_tag_2">Agilidade</span></span>
+                            <span class="flex items-center bg-gray-100 dark:bg-white/5 px-4 py-2 rounded-full"><i class="fas fa-check-circle text-tu-orange mr-2"></i> <span data-i18n="purpose_tag_3">Acabamento</span></span>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2 fade-in-section">
+    <div class="relative overflow-hidden">
+            <img src="img/proposito.png" alt="Propósito RMS" class="w-full h-auto object-contain">
+    </div>
+</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicos" class="py-24 bg-tu-light dark:bg-tu-card">
+            <div class="container mx-auto max-w-7xl px-4">
+                <div class="mb-16 text-center fade-in-section">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold mb-4 dark:text-white" data-i18n="services_title">Nossos Serviços</h2>
+                    <p class="text-gray-500 dark:text-gray-400" data-i18n="services_subtitle">Soluções completas para sua obra ou reparo.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 relative">
+                    <div class="relative bg-white dark:bg-black p-8 rounded-xl border border-gray-200 dark:border-white/10 shadow-sm hover:-translate-y-1 transition-transform fade-in-section">
+                        <div class="absolute -top-6 left-8 w-12 h-12 bg-tu-orange text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-neon">
+                            <i class="fas fa-trowel"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="font-display text-xl font-bold mb-3 dark:text-white" data-i18n="service_1_title">Pedreiro e Alvenaria</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-i18n="service_1_desc">
+                                Construção de paredes, contrapiso, reboco e reformas estruturais com alinhamento perfeito.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative bg-white dark:bg-black p-8 rounded-xl border border-gray-200 dark:border-white/10 shadow-sm hover:-translate-y-1 transition-transform fade-in-section" style="animation-delay: 0.1s;">
+                        <div class="absolute -top-6 left-8 w-12 h-12 bg-tu-orange text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-neon">
+                            <i class="fas fa-paint-roller"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="font-display text-xl font-bold mb-3 dark:text-white" data-i18n="service_2_title">Pintura Profissional</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-i18n="service_2_desc">
+                                Pintura interna e externa, texturas, massa corrida e acabamento fino para renovar seu ambiente.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative bg-white dark:bg-black p-8 rounded-xl border border-gray-200 dark:border-white/10 shadow-sm hover:-translate-y-1 transition-transform fade-in-section" style="animation-delay: 0.2s;">
+                        <div class="absolute -top-6 left-8 w-12 h-12 bg-tu-orange text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-neon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="font-display text-xl font-bold mb-3 dark:text-white" data-i18n="service_3_title">Elétrica & Hidráulica</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-i18n="service_3_desc">
+                                Instalações completas, reparos de vazamentos, troca de fiação e quadros de energia.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative bg-white dark:bg-black p-8 rounded-xl border border-gray-200 dark:border-white/10 shadow-sm hover:-translate-y-1 transition-transform fade-in-section">
+                        <div class="absolute -top-6 left-8 w-12 h-12 bg-tu-orange text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-neon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="font-display text-xl font-bold mb-3 dark:text-white" data-i18n="service_4_title">Gesso e Drywall</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-i18n="service_4_desc">
+                                Forros, sancas, divisórias e nichos planejados para modernizar o design do interior.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative bg-white dark:bg-black p-8 rounded-xl border border-gray-200 dark:border-white/10 shadow-sm hover:-translate-y-1 transition-transform fade-in-section" style="animation-delay: 0.1s;">
+                        <div class="absolute -top-6 left-8 w-12 h-12 bg-tu-orange text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-neon">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="font-display text-xl font-bold mb-3 dark:text-white" data-i18n="service_5_title">Ar Condicionado</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-i18n="service_5_desc">
+                                Instalação, infraestrutura e manutenção de aparelhos Split e sistemas de climatização.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative bg-white dark:bg-black p-8 rounded-xl border border-gray-200 dark:border-white/10 shadow-sm hover:-translate-y-1 transition-transform fade-in-section" style="animation-delay: 0.2s;">
+                        <div class="absolute -top-6 left-8 w-12 h-12 bg-tu-orange text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-neon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="font-display text-xl font-bold mb-3 dark:text-white" data-i18n="service_6_title">Som Ambiente</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-i18n="service_6_desc">
+                                Projetos de sonorização embutida no gesso para salas, varandas gourmet e comércios.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       <section id="diferenciais" class="py-24 bg-white dark:bg-tu-dark relative overflow-hidden select-none">
+             
+            <div class="absolute top-0 right-0 w-96 h-96 bg-tu-orange/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-tu-orange/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+
+            <div class="container mx-auto max-w-[1920px] px-0 relative z-10">
+                
+                <div class="text-center max-w-4xl mx-auto mb-12 fade-in-section px-4">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold mb-6 dark:text-white">
+                        <span data-i18n="diff_title">Obra que</span> <span class="text-tu-orange" data-i18n="diff_title_highlight">valoriza o imóvel.</span> <span data-i18n="diff_title_2">Sem Stress.</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        <span data-i18n="diff_subtitle">A</span> <strong class="text-gray-900 dark:text-white">RMS</strong> <span data-i18n="diff_subtitle_2">não abandona o serviço. Nascemos da prática e do compromisso diário.</span>
+                    </p>
+                </div>
+
+                <div id="infinite-drag-wrapper" class="overflow-x-hidden cursor-grab active:cursor-grabbing w-full no-scrollbar" style="scroll-behavior: auto !important;">
+                    
+                    <div id="infinite-track" class="flex gap-6 px-4 w-max">
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-check-double text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_1_title">Multidisciplinar</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_1_desc">Resolvemos elétrica, pintura e alvenaria em uma só equipe.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-handshake text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_2_title">Orçamento Justo</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_2_desc">Preço transparente, sem surpresas no final da obra.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-star text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_3_title">Acabamento Fino</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_3_desc">Atenção aos detalhes que valorizam o seu patrimônio.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-clock text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_4_title">Pontualidade</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_4_desc">Cronograma levado a sério. Respeitamos seu tempo.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-broom text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_5_title">Organização</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_5_desc">Obra limpa e organizada, minimizando o impacto no dia a dia.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-check-double text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_1_title">Multidisciplinar</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_1_desc">Resolvemos elétrica, pintura e alvenaria em uma só equipe.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-handshake text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_2_title">Orçamento Justo</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_2_desc">Preço transparente, sem surpresas no final da obra.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-star text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_3_title">Acabamento Fino</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_3_desc">Atenção aos detalhes que valorizam o seu patrimônio.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-clock text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_4_title">Pontualidade</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_4_desc">Cronograma levado a sério. Respeitamos seu tempo.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[450px] w-[300px] md:w-[350px] flex-shrink-0 rounded-2xl overflow-hidden group shadow-lg hover:-translate-y-2 transition-transform duration-300 pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale">
+                            <div class="absolute inset-0 bg-tu-orange/70 mix-blend-multiply z-10"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-end p-8 text-white">
+                                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white mb-6 border border-white/30"><i class="fas fa-broom text-2xl"></i></div>
+                                <h3 class="font-display text-2xl font-bold mb-2" data-i18n="diff_card_5_title">Organização</h3>
+                                <p class="text-white/90 text-sm" data-i18n="diff_card_5_desc">Obra limpa e organizada, minimizando o impacto no dia a dia.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       <section id="galeria" class="obras-section">
+    <div class="container-titulo">
+        <h2>Nossas <span>Obras</span></h2>
+    </div>
+
+    <div id="gallery-drag-wrapper" class="overflow-hidden cursor-grab active:cursor-grabbing w-full no-scrollbar relative">
+        
+        <div id="gallery-track" class="flex gap-5 w-max px-4">
+            
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img1.png" alt="Obra residencial RMS" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img2.png" alt="Reforma comercial" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img3.png" alt="Projeto de interiores" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img4.png" alt="Construção civil" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img5.png" alt="Acabamento fino" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img6.png" alt="Fachada moderna" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img1.png" alt="Obra residencial RMS" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img2.png" alt="Reforma comercial" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img3.png" alt="Projeto de interiores" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img4.png" alt="Construção civil" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img5.png" alt="Acabamento fino" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+            <div class="carousel-item relative h-[400px] w-[300px] flex-shrink-0 rounded-lg overflow-hidden border border-[#333] hover:border-[#ff8c00] transition-all duration-300">
+                <img src="img/img6.png" alt="Fachada moderna" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onclick="abrirZoom(this)">
+            </div>
+
+        </div>
+    </div>
+</section>
+<div id="modalZoom" class="modal-overlay" onclick="fecharZoom(event)">
+    <span class="btn-fechar" onclick="fecharZoom(event)">&times;</span>
+    <img class="modal-imagem" id="imgExpandida">
+</div>
+
+       <section id="cases" class="py-24 bg-white dark:bg-[#050505] relative overflow-hidden transition-colors duration-300">
+    
+    <div class="absolute top-1/2 left-0 w-[500px] h-[500px] bg-tu-orange/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 -translate-x-1/3"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gray-200 dark:bg-white/5 rounded-full blur-[100px] pointer-events-none translate-y-1/3 translate-x-1/3"></div>
+
+    <div class="container mx-auto max-w-7xl px-4 relative z-10">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start fade-in-section">
+            
+            <div>
+                <div class="mb-10">
+                    <span class="text-tu-orange font-bold tracking-widest text-xs uppercase mb-2 block" data-i18n="cases_pretitle">Execução Garantida</span>
+                    <h2 class="font-display text-[2rem] md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
+                        <span data-i18n="cases_title_1">Resultados que</span> <br>
+                        <span class="relative inline-block">
+                            <span class="relative z-10" data-i18n="cases_title_highlight">você pode confiar.</span>
+                            <span class="absolute bottom-2 left-0 w-full h-5 bg-tu-orange/40 -z-10 rounded-sm"></span>
+                        </span>
+                    </h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 mt-6 leading-relaxed" data-i18n="cases_subtitle">
+                        Não entregamos apenas serviços. Entregamos tranquilidade e valorização para o seu imóvel.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 p-5 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 hover:border-tu-orange/50 transition-colors group">
+                        <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-tu-orange shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fas fa-arrow-trend-up text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg" data-i18n="cases_item_1_title">Valorização do Imóvel</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-i18n="cases_item_1_desc">Reformas bem feitas aumentam o valor de mercado.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-5 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 hover:border-tu-orange/50 transition-colors group">
+                        <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-tu-orange shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fas fa-couch text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg" data-i18n="cases_item_2_title">Conforto Térmico e Acústico</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-i18n="cases_item_2_desc">Soluções ideais em gesso e climatização.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-5 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 hover:border-tu-orange/50 transition-colors group">
+                        <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-tu-orange shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fab fa-whatsapp text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg" data-i18n="cases_item_3_title">Atendimento Rápido</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-i18n="cases_item_3_desc">Orçamentos ágeis via WhatsApp.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-5 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 hover:border-tu-orange/50 transition-colors group">
+                        <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-tu-orange shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fas fa-check-double text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg" data-i18n="cases_item_4_title">Segurança Técnica</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-i18n="cases_item_4_desc">Instalações elétricas e hidráulicas dentro das normas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-[#121212] p-8 md:p-10 rounded-[2.5rem] border border-gray-200 dark:border-white/10 relative overflow-hidden">
+                
+                <div class="mb-8 text-center md:text-left">
+                    <h3 class="font-display text-2xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="cases_trust_title">
+                        Quem contrata a RMS?
+                    </h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm" data-i18n="cases_trust_subtitle">
+                        Expertise validada em diversos ambientes.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    
+                    <div class="flex flex-col items-center justify-center p-6 rounded-2xl bg-white dark:bg-black/40 border border-gray-100 dark:border-white/5 hover:border-tu-orange hover:shadow-lg transition-all group aspect-square text-center">
+                        <i class="fas fa-house-chimney text-3xl text-gray-400 dark:text-white/30 mb-4 group-hover:text-tu-orange transition-colors"></i>
+                        <span class="font-bold text-gray-800 dark:text-white text-sm group-hover:text-tu-orange transition-colors" data-i18n="cases_grid_1">Casas &<br>Apartamentos</span>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center p-6 rounded-2xl bg-white dark:bg-black/40 border border-gray-100 dark:border-white/5 hover:border-tu-orange hover:shadow-lg transition-all group aspect-square text-center">
+                        <i class="fas fa-store text-3xl text-gray-400 dark:text-white/30 mb-4 group-hover:text-tu-orange transition-colors"></i>
+                        <span class="font-bold text-gray-800 dark:text-white text-sm group-hover:text-tu-orange transition-colors" data-i18n="cases_grid_2">Lojas &<br>Comércios</span>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center p-6 rounded-2xl bg-white dark:bg-black/40 border border-gray-100 dark:border-white/5 hover:border-tu-orange hover:shadow-lg transition-all group aspect-square text-center">
+                        <i class="fas fa-building text-3xl text-gray-400 dark:text-white/30 mb-4 group-hover:text-tu-orange transition-colors"></i>
+                        <span class="font-bold text-gray-800 dark:text-white text-sm group-hover:text-tu-orange transition-colors" data-i18n="cases_grid_3">Escritórios &<br>Corporativo</span>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center p-6 rounded-2xl bg-white dark:bg-black/40 border border-gray-100 dark:border-white/5 hover:border-tu-orange hover:shadow-lg transition-all group aspect-square text-center">
+                        <i class="fas fa-city text-3xl text-gray-400 dark:text-white/30 mb-4 group-hover:text-tu-orange transition-colors"></i>
+                        <span class="font-bold text-gray-800 dark:text-white text-sm group-hover:text-tu-orange transition-colors" data-i18n="cases_grid_4">Condomínios</span>
+                    </div>
+
+                    <div class="col-span-2 flex items-center justify-between p-6 rounded-2xl bg-gradient-to-r from-gray-900 to-black dark:from-white/10 dark:to-white/5 border border-gray-100 dark:border-white/5 text-white shadow-lg relative overflow-hidden group cursor-pointer hover:scale-[1.02] transition-transform">
+                        <div class="absolute inset-0 bg-tu-orange opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="w-10 h-10 rounded-full bg-tu-orange flex items-center justify-center text-white">
+                                <i class="fas fa-helmet-safety"></i>
+                            </div>
+                            <div class="text-left">
+                                <span class="block font-bold text-sm" data-i18n="cases_grid_5_title">Obras Rápidas</span>
+                                <span class="block text-xs text-gray-400 group-hover:text-white transition-colors" data-i18n="cases_grid_5_sub">Pequenos reparos e reformas</span>
+                            </div>
+                        </div>
+                        <i class="fas fa-arrow-right text-tu-orange relative z-10"></i>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+        
+
+<section id="contato" class="pt-20 pb-32 bg-white dark:bg-tu-dark relative overflow-hidden">
+            
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-tu-orange/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="container mx-auto max-w-7xl px-4 relative z-10 fade-in-section">
+                
+                <div class="bg-gray-50 dark:bg-[#0A0A0A] border border-gray-200 dark:border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden">
+                    
+                    <div class="flex flex-col lg:flex-row items-center">
+                        
+                        <div class="w-full lg:w-3/5 p-8 md:p-12 lg:p-16 flex flex-col justify-center text-center lg:text-left z-10">
+                            
+                            <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                                <span data-i18n="contact_title_1">Chegou a hora de tirar sua reforma do</span> <span class="text-tu-orange" data-i18n="contact_title_highlight">papel.</span>
+                            </h2>
+                            
+                            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-10 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0" data-i18n="contact_subtitle">
+                                Pare de adiar. Temos a equipe certa para executar seu projeto com qualidade e sem dores de cabeça.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4">
+                                
+                                <a href="https://api.whatsapp.com/send?phone=5513000000000" target="_blank"
+                                    class="btn-sheen bg-tu-orange text-white font-display font-bold py-4 px-8 rounded-xl text-lg hover:bg-orange-600 shadow-neon transform hover:-translate-y-1 transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
+                                    <i class="fab fa-whatsapp text-2xl"></i>
+                                    <span data-i18n="hero_btn">Falar com a RMS</span>
+                                </a>
+
+                                <div class="text-sm text-gray-500 dark:text-gray-400 font-medium px-4 py-2 bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/5 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                    <span data-i18n="contact_status">Agenda Disponível</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="w-full lg:w-2/5 relative flex items-end justify-center lg:justify-end">
+                            <div class="relative w-full max-w-[500px] lg:max-w-none px-6 pb-6 lg:pb-0 lg:px-0 lg:-mr-8 lg:mt-8">
+                                <img src="img/new.png" alt="Destaque Final" class="w-full h-auto object-contain block relative z-10 transform lg:scale-110 lg:origin-bottom-right">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+    </main>
+
+    <footer class="bg-white dark:bg-black pt-16 pb-8 text-sm relative">
+        <div class="container mx-auto max-w-6xl px-4 border-t border-gray-100 dark:border-white/10 pt-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1">
+                    <img src="img/logop.png" alt="RMS Logo" class="theme-logo h-10 w-auto mb-6 opacity-90 object-contain">
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed mb-6" data-i18n="footer_about">
+                        Especialistas em reformas, construção e manutenção. Qualidade do alicerce ao acabamento.
+                    </p>
+                </div>
+
+                <div class="md:border-l md:border-gray-100 md:dark:border-white/10 md:pl-8">
+                    <h4 class="font-bold font-display text-gray-900 dark:text-white mb-6 text-lg relative inline-block">
+                        Menu
+                        <span class="absolute -left-8 top-1 h-4 w-1 bg-tu-orange hidden md:block"></span>
+                    </h4>
+                    <ul class="space-y-3 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
+                        <li><a href="#quem-somos" class="hover:text-tu-orange transition-colors" data-i18n="nav_about"><i class="fas fa-chevron-right text-xs mr-2 text-tu-orange"></i> A RMS</a></li>
+                        <li><a href="#servicos" class="hover:text-tu-orange transition-colors" data-i18n="nav_services"><i class="fas fa-chevron-right text-xs mr-2 text-tu-orange"></i> Serviços</a></li>
+                        <li><a href="#diferenciais" class="hover:text-tu-orange transition-colors" data-i18n="nav_diff"><i class="fas fa-chevron-right text-xs mr-2 text-tu-orange"></i> Diferenciais</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:border-l md:border-gray-100 md:dark:border-white/10 md:pl-8">
+                    <h4 class="font-bold font-display text-gray-900 dark:text-white mb-6 text-lg relative inline-block">
+                        <span data-i18n="footer_contact">Contato</span>
+                        <span class="absolute -left-8 top-1 h-4 w-1 bg-tu-orange hidden md:block"></span>
+                    </h4>
+                    <ul class="space-y-4 text-gray-500 dark:text-gray-400">
+                        <li class="flex items-center">
+                             <i class="fab fa-whatsapp text-tu-orange mr-3"></i>
+                            <span>(13) 00000-0000</span>
+                        </li>
+                        <li class="flex items-center">
+                             <i class="far fa-envelope text-tu-orange mr-3"></i>
+                            <a href="mailto:contato@rmsreforma.com.br" class="hover:text-tu-orange transition-colors">contato@rmsreforma.com.br</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="md:border-l md:border-gray-100 md:dark:border-white/10 md:pl-8">
+                    <h4 class="font-bold font-display text-gray-900 dark:text-white mb-6 text-lg relative inline-block">
+                        Social
+                        <span class="absolute -left-8 top-1 h-4 w-1 bg-tu-orange hidden md:block"></span>
+                    </h4>
+                    <div class="flex gap-3 text-gray-400">
+                        <a href="#" class="w-10 h-10 bg-gray-100 dark:bg-white/5 flex items-center justify-center rounded hover:bg-tu-orange hover:text-white transition-all"><i class="fab fa-instagram text-lg"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-100 dark:bg-white/5 flex items-center justify-center rounded hover:bg-tu-orange hover:text-white transition-all"><i class="fab fa-facebook-f text-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-gray-400 pt-8 border-t border-gray-100 dark:border-white/5">
+                &copy; 2025 RMS Reforma & Construção. <span data-i18n="footer_rights">Todos os direitos reservados.</span>
+            </div>
+        </div>
+    </footer>
+
+    <button id="lang-toggle-btn"
+        class="fixed bottom-20 right-6 z-50 w-12 h-12 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full shadow-lg flex items-center justify-center border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform group">
+        <span class="font-display font-bold text-xl" id="lang-indicator">🇧🇷</span>
+    </button>
+
+    <button id="theme-toggle-btn"
+        class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full shadow-lg flex items-center justify-center border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform">
+        <i id="theme-toggle-sun" class="fas fa-sun"></i>
+        <i id="theme-toggle-moon" class="fas fa-moon hidden"></i>
+    </button>
+
+    <script src="script.js"></script>
+<script>
+    // Função para abrir o Modal
+    function abrirZoom(elementoImagem) {
+        var modal = document.getElementById("modalZoom");
+        var imgNoModal = document.getElementById("imgExpandida");
+        
+        // Exibe o modal (usando flex para centralizar)
+        modal.style.display = "flex";
+        
+        // Pega o caminho da imagem clicada e joga no modal
+        imgNoModal.src = elementoImagem.src;
+        
+        // Desabilita o scroll da página principal enquanto o zoom está aberto
+        document.body.style.overflow = "hidden";
+    }
+
+    // Função para fechar o Modal
+    function fecharZoom(event) {
+        // Fecha se clicar no X ou se clicar fora da imagem (no overlay)
+        var modal = document.getElementById("modalZoom");
+        var img = document.getElementById("imgExpandida");
+        
+        // Verifica se o clique foi no overlay ou no botão X, não na imagem em si
+        if (event.target !== img) {
+            modal.style.display = "none";
+            // Reabilita o scroll da página principal
+            document.body.style.overflow = "auto";
+        }
+    }
+    
+    // Fecha com a tecla ESC para melhor usabilidade
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape") {
+            var modal = document.getElementById("modalZoom");
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    });
+</script>
+</body>
+</html>
