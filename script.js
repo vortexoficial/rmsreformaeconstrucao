@@ -129,9 +129,9 @@ const translations = {
         'nav_diff': 'Why RMS?',
         'nav_btn': 'Get a Quote',
         'hero_title_1': 'Your renovation doesn\'t have to be',
-        'hero_title_highlight': 'an endless headache.',
+        'hero_title_highlight': 'an endless headache',
         'hero_title_2': '.',
-        'hero_title_3': 'Quality, deadlines, and fine finishing.',
+        'hero_title_3': 'Quality, deadlines, and <br class="hidden lg:block"> fine finishing.',
         'hero_subtitle_1': 'From foundation to finishing,',
         'hero_subtitle_2': 'delivers the complete solution your project demands.',
         'hero_cta_text': 'Need renovations, electrical or plumbing?',
@@ -238,7 +238,7 @@ function updateLanguage(lang) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = translations[lang][key];
             } else {
-                el.innerText = translations[lang][key];
+                el.innerHTML = translations[lang][key];
             }
         }
     });
@@ -278,11 +278,14 @@ window.addEventListener('load', () => {
     }
 
     // Inicializar carrosséis com segurança de largura
-    // O ID abaixo 'infinite-drag-wrapper' deve ser o da seção Diferenciais
+    // Diferenciais
     setupInfiniteScroll('infinite-drag-wrapper', 'infinite-track', 1);
     
-    // O ID abaixo 'gallery-drag-wrapper' é o da NOVA seção Obras (Loop infinito)
+    // Galeria
     setupInfiniteScroll('gallery-drag-wrapper', 'gallery-track', -1);
+
+    // NOVA SESSÃO: Serviços (Velocidade 1 = para a direita/normal)
+    setupInfiniteScroll('services-drag-wrapper', 'services-track', 1);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
